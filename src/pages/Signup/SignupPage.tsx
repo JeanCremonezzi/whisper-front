@@ -2,6 +2,7 @@ import Styles from './SignupPage.module.scss'
 
 import { LandingContainer } from '../../components/LandingContainer/LandingContainer'
 import { EnvelopeClosedIcon, LockClosedIcon, PersonIcon } from '@radix-ui/react-icons'
+import { Link } from 'react-router-dom'
 
 export const SignupPage = () => {
     return (
@@ -26,8 +27,8 @@ export const SignupPage = () => {
                 </div>
 
                 <button>Cadastrar</button>
-
-                <a href='#' className={Styles.signin}>Já sou cadastrado</a>
+                
+                <Link to={'/'} className={Styles.signin}>Já sou cadastrado</Link>
             </form>
         </LandingContainer>
     )

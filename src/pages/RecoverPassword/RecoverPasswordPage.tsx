@@ -2,6 +2,7 @@ import Styles from './RecoverPasswordPage.module.scss'
 
 import { LandingContainer } from '../../components/LandingContainer/LandingContainer'
 import { EnvelopeClosedIcon, PersonIcon } from '@radix-ui/react-icons'
+import { Link } from 'react-router-dom'
 
 export const RecoverPasswordPage = () => {
     return (
@@ -21,7 +22,7 @@ export const RecoverPasswordPage = () => {
 
                 <button>Recuperar</button>
 
-                <a href='#' className={Styles.back}>Voltar</a>
+                <Link to={'/'} className={Styles.back}>Voltar</Link>
             </form>
         </LandingContainer>
     )

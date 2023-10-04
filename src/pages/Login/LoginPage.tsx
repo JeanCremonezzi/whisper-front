@@ -2,6 +2,7 @@ import Styles from './LoginPage.module.scss'
 
 import { LandingContainer } from '../../components/LandingContainer/LandingContainer'
 import { LockClosedIcon, EnvelopeClosedIcon } from '@radix-ui/react-icons'
+import { Link } from 'react-router-dom'
 
 export const LoginPage = () => {
     return (
@@ -19,11 +20,11 @@ export const LoginPage = () => {
                     <input type="password" placeholder='Password'/>
                 </div>
 
-                <a href='#' className={Styles.reset}>Recuperar senha</a>
+                <Link to={'/recover'} className={Styles.reset}>Recuperar senha</Link>
 
                 <button>Entrar</button>
 
-                <a href='#' className={Styles.signup}>Cadastrar-se</a>
+                <Link to={'/signup'} className={Styles.signup}>Cadastrar-se</Link>
             </form>
         </LandingContainer>
     )
