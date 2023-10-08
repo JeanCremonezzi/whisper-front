@@ -19,21 +19,14 @@
         padding: 40px;
     }
 
-    @include breakpoints.md {
-        padding: 80px;
-    }
-
     @include breakpoints.lg {
         font-size: 16px;    
-    }
-
-    @include breakpoints.xl {
-        padding: 80px 160px;
     }
 }
 
 #root, body, html {
     width: 100%;
+    height: 100%;
 }
 
 #root {
@@ -50,9 +43,20 @@
 }
 
 input::placeholder {
-    color: variables.$light !important;
+    color: variables.$light;
 }
 
 a {
     text-decoration: none;
 }
+
+ul, ol {
+    list-style: none;
+}
+
+input[type=search]::-ms-clear { display: none; width : 0; height: 0; }
+input[type=search]::-ms-reveal { display: none; width : 0; height: 0; }
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration { display: none; }

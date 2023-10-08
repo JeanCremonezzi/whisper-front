@@ -2,9 +2,13 @@ import Styles from './LoginPage.module.scss'
 
 import { LandingContainer } from '../../components/LandingContainer/LandingContainer'
 import { LockClosedIcon, EnvelopeClosedIcon } from '@radix-ui/react-icons'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 export const LoginPage = () => {
+    const navigate = useNavigate();
+
+    const handleLogin = () => navigate("/chat")
+
     return (
         <LandingContainer title='login'>
             <form action="" className={Styles.login}>
@@ -22,7 +26,7 @@ export const LoginPage = () => {
 
                 <Link to={'/recover'} className={Styles.reset}>Recuperar senha</Link>
 
-                <button>Entrar</button>
+                <button onClick={handleLogin}>Entrar</button>
 
                 <Link to={'/signup'} className={Styles.signup}>Cadastrar-se</Link>
             </form>

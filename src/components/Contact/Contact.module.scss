@@ -1,0 +1,75 @@
+@use '../../scss/variables';
+@use '../../scss/breakpoints';
+@use '../../scss/styles';
+
+.contact {
+    cursor: pointer;
+    background: white;
+
+    height: 96px;
+    border-radius: variables.$border-radius;
+
+    color: variables.$dark;
+
+    display: flex;
+    align-items: center;
+
+    padding: 0 16px;
+    gap: 12px;
+
+    font: 1.2rem 'Poppins';
+    
+    font-weight: 400;
+    letter-spacing: 1px;
+
+    &:hover {
+        background: lightgray;
+    }
+
+    transition: background 0.2s ease;
+}
+
+.avatar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 50%;
+
+    width: 56px;
+    height: 56px;
+    background: #BFBFBF;
+
+    svg {
+        height: 24px;
+        width: 24px;
+        color: white;
+    }
+}
+
+.notification {
+    position: absolute;
+    right: 32px;
+    background: #FF4D4F;
+    color: white;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    span {
+        font: 14px 'Roboto';
+        font-weight: 500;
+    }
+}
+
+.active {
+    background: #878787;
+
+    .avatar {
+        background: #BFBFBF;
+    }
+}
