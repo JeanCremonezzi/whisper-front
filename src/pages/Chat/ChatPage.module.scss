@@ -2,11 +2,12 @@
 @use '../../scss/breakpoints';
 @use '../../scss/styles';
 
-.chat-container {
+.main-container {
     width: 100%;
     height: 100%;
 
     max-width: 1400px;
+    max-height: 920px;
 
     display: flex;
     flex-direction: row;
@@ -14,6 +15,77 @@
     gap: 12px;
 }
 
-.chat {
+.chat-container {
     width: 100%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.chat {
+    height: 100%;
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.messages {
+    display: flex;
+    flex-direction: column;
+
+    padding: 16px 64px;
+
+    background: #EDEDED;
+    overflow-y: auto;
+
+    height: 100%;
+
+    &::-webkit-scrollbar{
+        display: none;
+    }
+
+    border-radius: 0 0 variables.$border-radius variables.$border-radius;
+}
+
+.message-input {
+    height: 100%;
+    max-height: 100px;
+
+    display: flex;
+
+    textarea {
+        width: 100%;
+        height: 100%;
+        padding: 16px;
+        font: 1.2rem "Poppins";
+
+        resize: none;
+        outline: none;
+
+        border-radius: variables.$border-radius 0 0 variables.$border-radius;
+    }
+
+    button {
+        cursor: pointer;
+        height: 100%;
+        width: 80px;
+
+        border: 0;
+        background: variables.$highlight;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        border-radius: 0 variables.$border-radius variables.$border-radius 0;
+
+        svg {
+            width: 32px;
+            height: 32px;
+            color: white;
+        }
+    }
 }

@@ -1,0 +1,54 @@
+@use '../../scss/variables';
+@use '../../scss/breakpoints';
+@use '../../scss/styles';
+
+.header {
+    width: 100%;
+    min-height: 100px;
+    background: variables.$highlight;
+    border-radius: variables.$border-radius variables.$border-radius 0 0;
+
+    padding: 0 64px;
+    gap: 12px;
+
+    position: relative;
+    display: flex;
+    align-items: center;
+
+    span {
+        font: 1.2rem 'Poppins';
+        font-weight: 300;
+
+        small {
+            font-size: 0.8em;
+        }
+    }
+
+    .options {
+        width: 24px;
+        height: 24px;
+
+        cursor: pointer;
+
+        position: absolute;
+        right: 8px;
+        top: 16px;
+    }
+}
+
+.avatar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 50%;
+
+    width: 56px;
+    height: 56px;
+    background: #BFBFBF;
+
+    svg {
+        height: 24px;
+        width: 24px;
+    }
+}
