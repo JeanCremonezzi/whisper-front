@@ -3,30 +3,43 @@ import Styles from './LoginPage.module.scss'
 import { LandingContainer } from '../../components/LandingContainer/LandingContainer'
 import { LockClosedIcon, EnvelopeClosedIcon } from '@radix-ui/react-icons'
 import { Link, useNavigate } from 'react-router-dom'
+import { useState } from 'react'
+import { login } from '../../services/Api/Requests'
 
 export const LoginPage = () => {
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+
     const navigate = useNavigate();
 
-    const handleLogin = () => navigate("/chat")
+    const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {        
+        e.preventDefault();
+
+        if (email === "" && password=== "") return
+
+        login({ email, password }).then(res => sessionStorage.setItem("user", JSON.stringify(res.data)))
+
+        navigate("/chat")
+    }
 
     return (
         <LandingContainer title='login'>
-            <form action="" className={Styles.login}>
+            <form className={Styles.login} onSubmit={handleLogin}>
                 <div className={Styles["input-section"]}>
                     <EnvelopeClosedIcon className={Styles.prefix}/>
 
-                    <input type="email" placeholder='Email'/>
+                    <input type="email" placeholder='Email' value={email} onChange={e => setEmail(e.target.value)}/>
                 </div>
 
                 <div className={Styles["input-section"]}>
                     <LockClosedIcon className={Styles.prefix}/>
 
-                    <input type="password" placeholder='Password'/>
+                    <input type="password" placeholder='Password' value={password} onChange={e => setPassword(e.target.value)}/>
                 </div>
 
                 <Link to={'/recover'} className={Styles.reset}>Recuperar senha</Link>
 
-                <button onClick={handleLogin}>Entrar</button>
+                <button type="submit">Entrar</button>
 
                 <Link to={'/signup'} className={Styles.signup}>Cadastrar-se</Link>
             </form>
