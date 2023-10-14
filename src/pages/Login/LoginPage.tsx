@@ -17,9 +17,10 @@ export const LoginPage = () => {
 
         if (email === "" && password=== "") return
 
-        login({ email, password }).then(res => sessionStorage.setItem("user", JSON.stringify(res.data)))
-
-        navigate("/chat")
+        login({ email, password }).then(res => { 
+            sessionStorage.setItem("user", JSON.stringify(res.data))
+            navigate("/chat")
+        })
     }
 
     return (

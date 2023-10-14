@@ -1,14 +1,19 @@
 import { PersonIcon } from '@radix-ui/react-icons'
 import Styles from './Contact.module.scss'
 
-export const Contact = () => {
+interface ContactProps {
+    username: string,
+    tag: string
+}
+
+export const Contact = (props: ContactProps) => {
     return (
         <li className={`${Styles.contact}`}>
             <div className={Styles.avatar}>
                 <PersonIcon/>
             </div>
 
-            <span>User <small>#1234</small></span>
+            <span>{props.username} <small>#{props.tag}</small></span>
 
             <div className={Styles.notification}>
                 <span>9+</span>
