@@ -3,7 +3,7 @@ import { PropsWithChildren, createContext, useState } from "react";
 export const ChatContext = createContext({
     username: "",
     tag: "",
-    setChat: (username: string, tag: string): void => {}
+    setChat: (_username: string, _tag: string): void => {}
 })
 
 export const ChatProvider = ({ children }: PropsWithChildren) => {
