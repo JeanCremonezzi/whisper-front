@@ -28,13 +28,10 @@ $gap: 12px;
     padding: 0 16px;
     gap: $gap;
 
-    span {
-        font: 1.2rem 'Poppins';
-        font-weight: 300;
+    font: 1.2rem 'Poppins';
 
-        small {
-            font-size: 0.8em;
-        }
+    small {
+        font-size: 0.8rem;
     }
 
     .options {
@@ -47,6 +44,11 @@ $gap: 12px;
         right: 16px;
         top: 8px;
 
+    }
+
+    .user-info {
+        display: flex;
+        flex-direction: column;
     }
 }
 

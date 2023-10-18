@@ -26,6 +26,15 @@
         background: lightgray;
     }
 
+    .contact-info {
+        display: flex;
+        flex-direction: column;
+
+        small {
+            font-size: 0.8rem;
+        }
+    }
+
     transition: background 0.2s ease;
 }
 

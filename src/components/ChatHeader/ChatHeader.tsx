@@ -14,7 +14,10 @@ export const ChatHeader = () => {
                         <PersonIcon/>
                     </div>
 
-                    <span>{chatContext.username} <small>#{chatContext.tag}</small></span>
+                    <div className={Styles["chat-info"]}>
+                        <span>{chatContext.username} <small>#{chatContext.tag}</small></span>
+                        <small>{chatContext.email}</small>
+                    </div>
 
                     <DotsVerticalIcon className={Styles.options}/>
                 </>

@@ -5,13 +5,14 @@ import { useContext } from 'react'
 
 interface ContactProps {
     username: string,
-    tag: string
+    tag: string,
+    email: string
 }
 
-export const Contact = ({username, tag}: ContactProps) => {
+export const Contact = ({username, tag, email}: ContactProps) => {
     const chatContext = useContext(ChatContext)
 
-    const handleClick = () => chatContext.setChat(username, tag)
+    const handleClick = () => chatContext.setChat(username, tag, email)
 
     const isActive = () => chatContext.username == username && chatContext.tag == tag
 
@@ -21,7 +22,10 @@ export const Contact = ({username, tag}: ContactProps) => {
                 <PersonIcon/>
             </div>
 
-            <span>{username} <small>#{tag}</small></span>
+            <div className={Styles["contact-info"]}>
+                <span>{username} <small>#{tag}</small></span>
+                <small>{email}</small>
+            </div>
 
             <div className={Styles.notification}>
                 <span>9+</span>

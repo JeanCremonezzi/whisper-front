@@ -11,5 +11,6 @@ export interface LoginInterface {
 
 export interface UserSearchInterface {
     username: string,
-    tag: string
+    tag: string,
+    email: string
 }

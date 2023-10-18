@@ -10,14 +10,16 @@ import { UserSearchInterface } from '../../services/Api/Interfaces';
 export const Sidebar = () => {
     const [username, setUsername] = useState("")
     const [tag, setTag] = useState("")
+    const [email, setEmail] = useState("")
     const [search, setSearch] = useState("")
     const [users, setUsers] = useState<UserSearchInterface[]>([])
 
     useEffect(() => {
-       const { username, tag } = JSON.parse(sessionStorage.user)
+       const { username, tag, email } = JSON.parse(sessionStorage.user)
 
        setUsername(username)
        setTag(tag)
+       setEmail(email)
     }, [])
 
     const handleSearch = () => {
@@ -34,7 +36,10 @@ export const Sidebar = () => {
                      <PersonIcon/>
                 </div>
 
-                <span>{username} <small>#{tag}</small></span>
+                <div className={Styles["user-info"]}>
+                    <span>{username} <small>#{tag}</small></span>
+                    <small>{email}</small>
+                </div>
 
                 <DotsHorizontalIcon className={Styles.options}/>
             </div>
@@ -50,7 +55,7 @@ export const Sidebar = () => {
 
                 <SimpleBar className={Styles["users-list"]}>
                     <ul>
-                        {users.map((user) => <Contact key={`${user.username}#${user.tag}`} username={user.username} tag={user.tag} />)}
+                        {users.map((user) => <Contact key={`${user.username}#${user.tag}`} username={user.username} tag={user.tag} email={user.email} />)}
                     </ul>
                 </SimpleBar>
             </div>
