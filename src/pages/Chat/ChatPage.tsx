@@ -3,28 +3,33 @@ import { ChatHeader } from '../../components/ChatHeader/ChatHeader'
 import { Sidebar } from '../../components/Sidebar/Sidebar'
 import Styles from './ChatPage.module.scss'
 import { PaperPlaneIcon } from '@radix-ui/react-icons'
-import { Message, MessageProps } from '../../components/Message/Message'
-import { useEffect, useState } from 'react'
+import { Message } from '../../components/Message/Message'
+import { useContext, useEffect, useState } from 'react'
 import { Socket } from '../../socket';
+import { ChatContext } from '../../contexts/ChatContext'
 
 export const ChatPage = () => {
     const [newMessage, setNewMessage] = useState("")
-    const [messages, setMessages] = useState<MessageProps[]>([])
 
-    useEffect(() => {
+    const chatContext = useContext(ChatContext)
+
+    useEffect(() => {        
+        Socket.auth = { user: sessionStorage.getItem("user") }
         Socket.connect()
 
-        Socket.on("message", (message) => {                                                            
-            setMessages((prevState) => {
-                return [...prevState, {
-                    message,
-                    isMine: false
-                }]
+        Socket.on("message", ({message, from}) => {
+            chatContext.addMessage({
+                message, 
+                from
             })
         })
 
+        Socket.on("connect_error", (err) => {
+            alert(err.message)
+        })
+
         return () => { Socket.off("message") };
-    }, [Socket, messages])
+    }, [Socket])
 
     const handleMessage = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault()
@@ -34,13 +39,14 @@ export const ChatPage = () => {
             return
         }
 
-        Socket.emit("message", newMessage)
+        Socket.emit("message", {
+            message: newMessage,
+            to: chatContext.email
+        })
 
-        setMessages((prevState) => {
-            return [...prevState, {
-                message: newMessage, 
-                isMine: true
-            }]
+        chatContext.addMessage({
+            message: newMessage, 
+            from: ""
         })
 
         setNewMessage("")
@@ -55,13 +61,13 @@ export const ChatPage = () => {
 
                 <div className={Styles["chat"]}>
                     <SimpleBar className={Styles["messages"]}>
-                        {messages.map((message, index) => <Message key={index} message={message.message} isMine={message.isMine}/>)}
+                        {chatContext.messages.map((message, index) => <Message key={index} message={message.message} from={message.from}/>)}
                     </SimpleBar>
 
                     <div className={Styles["message-input"]}>
-                        <textarea rows={5} placeholder='Escreva uma nova mensagem...' value={newMessage} onChange={e => setNewMessage(e.target.value)}></textarea>
+                        <textarea disabled={ chatContext.email ? false : true } rows={5} placeholder='Escreva uma nova mensagem...' value={newMessage} onChange={e => setNewMessage(e.target.value)}></textarea>
 
-                        <button onClick={handleMessage}>
+                        <button onClick={handleMessage} disabled={ chatContext.email ? false : true }>
                             <PaperPlaneIcon/>
                         </button>
                     </div>

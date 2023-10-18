@@ -1,21 +1,41 @@
 import { PropsWithChildren, createContext, useState } from "react";
+import { MessageProps } from "../components/Message/Message";
 
-export const ChatContext = createContext({
+type ChatContextType = {
+    username: string,
+    tag: string,
+    email: string,
+    messages: MessageProps[],
+    setChat: (_username: string, _tag: string, _email: string) => void,
+    addMessage: (message: MessageProps) => void
+}
+
+export const ChatContext = createContext<ChatContextType>({
     username: "",
     tag: "",
     email: "",
-    setChat: (_username: string, _tag: string, _email: string): void => {}
+    messages: [],
+    setChat: (_username: string, _tag: string, _email: string): void => {},
+    addMessage: (message: MessageProps): void => {}
 })
 
 export const ChatProvider = ({ children }: PropsWithChildren) => {
     const [username, setUsername] = useState("")
     const [tag, setTag] = useState("")
     const [email, setEmail] = useState("")
+    const [messages, setMessages] = useState<MessageProps[]>([])
 
     const setChat = (username: string, tag: string, email: string) => {
         setUsername(username)
         setTag(tag)
         setEmail(email)
+        setMessages([])
+    }
+
+    const addMessage = (message: MessageProps) => {
+        setMessages(prevState => {
+            return [...prevState, message]
+        })
     }
 
     return (
@@ -23,7 +43,9 @@ export const ChatProvider = ({ children }: PropsWithChildren) => {
             username,
             tag,
             email,
-            setChat
+            messages,
+            setChat,
+            addMessage
         }}>
             {children}
         </ChatContext.Provider>

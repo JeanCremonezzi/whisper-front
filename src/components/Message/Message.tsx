@@ -2,12 +2,12 @@ import Styles from './Message.module.scss'
 
 export interface MessageProps {
     message: string,
-    isMine: boolean
+    from: string
 }
 
-export const Message = ({ message, isMine }: MessageProps) => {
+export const Message = ({ message, from }: MessageProps) => {
     return (
-        <div className={`${Styles.message} ${isMine ? Styles.mine : ""}`}>
+        <div className={`${Styles.message} ${from ? "" : Styles.mine}`}>
             <span>00:00</span>
 
             <p>{message}</p>

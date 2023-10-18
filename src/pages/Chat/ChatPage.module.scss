@@ -57,6 +57,7 @@
     display: flex;
 
     textarea {
+        border: 0;
         width: 100%;
         height: 100%;
         padding: 16px;
@@ -65,7 +66,12 @@
         resize: none;
         outline: none;
 
+        transition: background 0.1s ease;
         border-radius: variables.$border-radius 0 0 variables.$border-radius;
+
+        &:disabled {
+            background: rgba($color: #000000, $alpha: 0.1);
+        }
     }
 
     button {
@@ -81,11 +87,17 @@
         align-items: center;
 
         border-radius: 0 variables.$border-radius variables.$border-radius 0;
+        transition: background 0.1s ease;
 
         svg {
             width: 32px;
             height: 32px;
             color: white;
+        }
+
+        &:disabled {
+            background: rgba($color: #000000, $alpha: 0.1);
+            cursor: not-allowed;
         }
     }
 }
