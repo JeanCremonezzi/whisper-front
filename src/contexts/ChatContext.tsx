@@ -16,7 +16,7 @@ export const ChatContext = createContext<ChatContextType>({
     email: "",
     messages: [],
     setChat: (_username: string, _tag: string, _email: string): void => {},
-    addMessage: (message: MessageProps): void => {}
+    addMessage: (_message: MessageProps): void => {}
 })
 
 export const ChatProvider = ({ children }: PropsWithChildren) => {

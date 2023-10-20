@@ -3,8 +3,10 @@ import Styles from './LoginPage.module.scss'
 import { LandingContainer } from '../../components/LandingContainer/LandingContainer'
 import { LockClosedIcon, EnvelopeClosedIcon } from '@radix-ui/react-icons'
 import { Link, useNavigate } from 'react-router-dom'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { login } from '../../services/Api/Requests'
+import { AuthContext } from '../../contexts/AuthContext'
+import { Socket } from '../../socket'
 
 export const LoginPage = () => {
     const [email, setEmail] = useState("")
@@ -12,13 +14,20 @@ export const LoginPage = () => {
 
     const navigate = useNavigate();
 
+    const authContext = useContext(AuthContext)
+
     const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {        
         e.preventDefault();
 
-        if (email === "" && password=== "") return
+        if (email === "" && password === "") return
 
-        login({ email, password }).then(res => { 
-            sessionStorage.setItem("user", JSON.stringify(res.data))
+        login({ email, password }).then(res => {
+            const {username, tag, email} = res.data
+            authContext.setUser(username, tag, email)
+
+            Socket.auth = { user: res.data }
+            Socket.connect()
+                
             navigate("/chat")
         })
     }

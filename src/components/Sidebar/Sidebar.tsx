@@ -3,24 +3,16 @@ import Styles from './Sidebar.module.scss'
 import 'simplebar-react/dist/simplebar.min.css';
 import { Contact } from '../Contact/Contact';
 import { DotsHorizontalIcon, MagnifyingGlassIcon, PersonIcon } from '@radix-ui/react-icons';
-import { useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import { searchUsers } from '../../services/Api/Requests';
 import { UserSearchInterface } from '../../services/Api/Interfaces';
+import { AuthContext } from '../../contexts/AuthContext';
 
 export const Sidebar = () => {
-    const [username, setUsername] = useState("")
-    const [tag, setTag] = useState("")
-    const [email, setEmail] = useState("")
     const [search, setSearch] = useState("")
     const [users, setUsers] = useState<UserSearchInterface[]>([])
 
-    useEffect(() => {
-       const { username, tag, email } = JSON.parse(sessionStorage.user)
-
-       setUsername(username)
-       setTag(tag)
-       setEmail(email)
-    }, [])
+    const authContext = useContext(AuthContext)
 
     const handleSearch = () => {
         if (search === "") return
@@ -37,8 +29,8 @@ export const Sidebar = () => {
                 </div>
 
                 <div className={Styles["user-info"]}>
-                    <span>{username} <small>#{tag}</small></span>
-                    <small>{email}</small>
+                    <span>{authContext.username} <small>#{authContext.tag}</small></span>
+                    <small>{authContext.email}</small>
                 </div>
 
                 <DotsHorizontalIcon className={Styles.options}/>

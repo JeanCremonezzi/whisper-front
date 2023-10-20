@@ -13,10 +13,7 @@ export const ChatPage = () => {
 
     const chatContext = useContext(ChatContext)
 
-    useEffect(() => {        
-        Socket.auth = { user: sessionStorage.getItem("user") }
-        Socket.connect()
-
+    useEffect(() => {
         Socket.on("message", ({message, from}) => {
             chatContext.addMessage({
                 message, 
@@ -25,7 +22,9 @@ export const ChatPage = () => {
         })
 
         Socket.on("connect_error", (err) => {
-            alert(err.message)
+            console.error(err.message);
+            
+            alert("Ocorreu um erro!")
         })
 
         return () => { Socket.off("message") };
