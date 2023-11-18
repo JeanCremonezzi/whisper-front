@@ -18,3 +18,7 @@ export const searchUsers = async (searchString: string) => {
         params
     });
 }
+
+export const getChats = async () => {
+    return await API.get("/chats");
+}

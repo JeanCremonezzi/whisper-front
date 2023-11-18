@@ -7,18 +7,30 @@ import { Message } from '../../components/Message/Message'
 import { useContext, useEffect, useState } from 'react'
 import { Socket } from '../../socket';
 import { ChatContext } from '../../contexts/ChatContext'
+import { getChats } from '../../services/Api/Requests'
 
 export const ChatPage = () => {
     const [newMessage, setNewMessage] = useState("")
 
     const chatContext = useContext(ChatContext)
 
-    useEffect(() => {
+    useEffect(() => {        
         Socket.on("message", ({message, from}) => {
-            chatContext.addMessage({
-                message, 
-                from
-            })
+
+            const foundRoom = chatContext.rooms.filter(room => room.user.email === from.email)[0] || null
+
+            foundRoom 
+                ? chatContext.addMessageFrom({
+                    message,
+                    from
+                })
+                : chatContext.addRoom({
+                    user: from,
+                    messages: [{
+                        from,
+                        message: message
+                    }]
+                })
         })
 
         Socket.on("connect_error", (err) => {
@@ -28,7 +40,13 @@ export const ChatPage = () => {
         })
 
         return () => { Socket.off("message") };
-    }, [Socket])
+    }, [Socket, chatContext])
+
+    useEffect(() => {
+        getChats().then(res => {
+            chatContext.setRooms(res.data)
+        })
+    }, [])
 
     const handleMessage = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault()
@@ -43,10 +61,13 @@ export const ChatPage = () => {
             to: chatContext.email
         })
 
-        chatContext.addMessage({
-            message: newMessage, 
-            from: ""
-        })
+        const to = {
+            email: chatContext.email,
+            username: chatContext.username,
+            tag: chatContext.tag
+        }
+
+        chatContext.addMessageTo(to, newMessage);
 
         setNewMessage("")
     }

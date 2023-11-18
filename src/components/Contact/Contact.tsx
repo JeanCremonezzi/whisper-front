@@ -6,13 +6,20 @@ import { useContext } from 'react'
 interface ContactProps {
     username: string,
     tag: string,
-    email: string
+    email: string,
+    messages: any[]
 }
 
-export const Contact = ({username, tag, email}: ContactProps) => {
+export const Contact = ({ username, tag, email, messages }: ContactProps) => {
     const chatContext = useContext(ChatContext)
 
-    const handleClick = () => chatContext.setChat(username, tag, email)
+    const handleClick = () => {
+        const foundRoom = chatContext.rooms.filter(room => room.user.email === email)[0] || null
+
+        foundRoom 
+            ? chatContext.setChat(username, tag, email, foundRoom.messages) 
+            : chatContext.setChat(username, tag, email, [])
+    }
 
     const isActive = () => chatContext.username == username && chatContext.tag == tag
 
@@ -27,9 +34,9 @@ export const Contact = ({username, tag, email}: ContactProps) => {
                 <small>{email}</small>
             </div>
 
-            <div className={Styles.notification}>
+            {/*<div className={Styles.notification}>
                 <span>9+</span>
-            </div>
+            </div>*/}
         </li>
     )
 }

@@ -7,17 +7,25 @@ import { useContext, useState } from 'react';
 import { searchUsers } from '../../services/Api/Requests';
 import { UserSearchInterface } from '../../services/Api/Interfaces';
 import { AuthContext } from '../../contexts/AuthContext';
+import { ChatContext } from '../../contexts/ChatContext';
 
 export const Sidebar = () => {
-    const [search, setSearch] = useState("")
     const [users, setUsers] = useState<UserSearchInterface[]>([])
+    const [search, setSearch] = useState<string>("")
 
     const authContext = useContext(AuthContext)
+    const chatContext = useContext(ChatContext)
 
     const handleSearch = () => {
-        if (search === "") return
+        if (search.trim() === "") return
 
         searchUsers(search).then((res) => setUsers(res.data))
+    }
+
+    const handleInput = (value: string) => {
+        if (value.trim() === "") setUsers([])
+
+        setSearch(value)
     }
 
     return (
@@ -38,7 +46,7 @@ export const Sidebar = () => {
 
             <div className={Styles["users"]}>
                 <div className={Styles["search"]}>
-                    <input type="search" placeholder='Procurar usuário' value={search} onChange={e => setSearch(e.target.value)}/>
+                    <input type="search" placeholder='Procurar usuário' value={search} onChange={e => handleInput(e.target.value)}/>
 
                     <button onClick={handleSearch}>
                         <MagnifyingGlassIcon/>
@@ -47,7 +55,10 @@ export const Sidebar = () => {
 
                 <SimpleBar className={Styles["users-list"]}>
                     <ul>
-                        {users.map((user) => <Contact key={`${user.username}#${user.tag}`} username={user.username} tag={user.tag} email={user.email} />)}
+                        { search.trim() === "" || users.length === 0
+                            ? chatContext.rooms.map((room) => <Contact key={`${room.user.username}#${room.user.tag}`} username={room.user.username} tag={room.user.tag} email={room.user.email} messages={room.messages}/>)
+                            : users.map((user) => <Contact key={`${user.username}#${user.tag}`} username={user.username} tag={user.tag} email={user.email} messages={[]}/>)
+                        }
                     </ul>
                 </SimpleBar>
             </div>
