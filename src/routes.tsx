@@ -10,7 +10,7 @@ export const AppRoutes = () => {
         <Routes>
             <Route path="/" element={<LoginPage/>} index/>
             <Route path="/signup" element={<SignupPage/>}/>
-            <Route path="/recover" element={<RecoverPasswordPage/>}/>
+            {/*<Route path="/recover" element={<RecoverPasswordPage/>}/>*/}
             <Route path="/chat" element={<ChatProvider><ChatPage/></ChatProvider>}/>
         </Routes>
     )

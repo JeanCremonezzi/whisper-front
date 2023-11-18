@@ -28,7 +28,7 @@ export const Sidebar = () => {
         setSearch(value)
     }
 
-    const handleExit = (e: React.MouseEvent<SVGAElement>) => {
+    const handleExit = (_e: React.MouseEvent<SVGAElement>) => {
        authContext.removeUser()
     }
 

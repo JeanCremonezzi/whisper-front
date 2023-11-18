@@ -47,7 +47,7 @@ export const LoginPage = () => {
                     <input type="password" placeholder='Password' value={password} onChange={e => setPassword(e.target.value)}/>
                 </div>
 
-                <Link to={'/recover'} className={Styles.reset}>Recuperar senha</Link>
+                {/*<Link to={'/recover'} className={Styles.reset}>Recuperar senha</Link>*/}
 
                 <button type="submit">Entrar</button>
 
