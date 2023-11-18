@@ -2,8 +2,8 @@ import SimpleBar from 'simplebar-react'
 import Styles from './Sidebar.module.scss'
 import 'simplebar-react/dist/simplebar.min.css';
 import { Contact } from '../Contact/Contact';
-import { DotsHorizontalIcon, MagnifyingGlassIcon, PersonIcon } from '@radix-ui/react-icons';
-import { useContext, useState } from 'react';
+import { ExitIcon, MagnifyingGlassIcon, PersonIcon } from '@radix-ui/react-icons';
+import React, { useContext, useState } from 'react';
 import { searchUsers } from '../../services/Api/Requests';
 import { UserSearchInterface } from '../../services/Api/Interfaces';
 import { AuthContext } from '../../contexts/AuthContext';
@@ -28,6 +28,10 @@ export const Sidebar = () => {
         setSearch(value)
     }
 
+    const handleExit = (e: React.MouseEvent<SVGAElement>) => {
+       authContext.removeUser()
+    }
+
     return (
         <div className={Styles["sidebar"]}>
             
@@ -41,7 +45,7 @@ export const Sidebar = () => {
                     <small>{authContext.email}</small>
                 </div>
 
-                <DotsHorizontalIcon className={Styles.options}/>
+                <ExitIcon className={Styles.exit} onClick={handleExit}/>
             </div>
 
             <div className={Styles["users"]}>
